@@ -28,7 +28,6 @@ app.get('/',function(req,res){
 
 // API : /upload
 app.post('/upload',function(req, res) {
-    
     upload(req, res, function(err) {
      
         if (err instanceof multer.MulterError) {
@@ -41,43 +40,72 @@ app.post('/upload',function(req, res) {
 
         // iterate over each pdf file
         for (const file of req.files) {
+            // buffer the contents of the pdf file
             let dataBuffer = fs.readFileSync(file.destination + file.filename);
+
+            let arr = [];
+            
+            // parse the contents of the pdf file
             pdf(dataBuffer).then(data => {
-                // number of pages
-                // console.log(data.numpages);
-                // number of rendered pages
-                // console.log(data.numrender);
-                // // PDF info
-                //console.log(data.info);
-                //console.log(data.info.Author);
 
                 if ( data.info.Author === "CapitalOne" ) {
                     console.log("Capital One Detected");
                 } else if ( data.info.Author === "Bank of America" ) {
                     console.log("Bank of America");
-                    console.log(data.text);
+           
+                    // split the large string into individual lines
+                    const strArr = data.text.split("\n");
+        
+                    // loop over each line in the string array
+                    for(const x in strArr){
+        
+                        // date match
+                        const mLine = strArr[x].match(/((\d+\/){2}\d+)(.*)/ig)
+                        if ( mLine ) {
+        
+                            // currency match
+                            const mCur = mLine[0].match(/(\d+\,)?(\d*)(\.\d{2})$/ig);
+                            // if the current line does not currency match the end of the string
+                            if ( !mCur ) {
+                                // if the current line does not end with a currency match then
+                                // I need to look ahead for the rest of the line data hense the
+                                // finishLine method
+                                const line = finishLine(strArr, x);
+                                arr.push(line);
+                                //console.log(line);
+                            } else {
+                                arr.push(mLine[0]);
+                            }
+                        }
+                    }
+        
+                    return arr;
+        
                 } else if ( data.info.Author === "AmEx" ) {
                     console.log("AmEx");
                 }
+            }).then( arr => {
+                console.log("Parsed. Sent back.");
+                res.send( arr );
 
-                // // PDF metadata
-                //console.log(data.metadata); 
-                // // PDF.js version
-                // // check https://mozilla.github.io/pdf.js/getting_started/
-                //console.log(data.version);
-                // // PDF text
-                //console.log(data.text); 
-            }).then(() => {
-                // delete the file
+                // delete the uploaded file
                 fs.unlinkSync(file.destination + file.filename);
-            })
-
+            }).catch( error => {
+                console.log("Error: ", error);
+            });
+            
         }
         
-        return res.status(200).send(req.file);
+        //return res.status(200).send(req.file);
         // Everything went fine.
       })
 });
+
+// this needs to be a recursive function but
+// for now this will work
+function finishLine(strArr, currentLine){
+    return strArr[currentLine] + strArr[Number(currentLine) + 1] + strArr[Number(currentLine) + 2];
+}
 
 app.listen(4000, function() {
     console.log('App running on port 4000');

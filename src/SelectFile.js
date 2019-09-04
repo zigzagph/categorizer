@@ -24,7 +24,9 @@ const useStyles = makeStyles({
     },
 });
 
-export default () => {
+export default ({
+    setItems
+}) => {
     const classes = useStyles();
     const [loaded, setLoaded] = React.useState(0);
     
@@ -43,6 +45,7 @@ export default () => {
         })
         .then(res => { // then print response status
             console.log("Response:", res);
+            setItems(res.data);
             toast.success('upload success')
         })
         .catch(err => { // then print response status
@@ -50,20 +53,16 @@ export default () => {
         })
 
     }
-    
-    /* const showState = () => {
-        console.log(file);
-    } */
 
     return (
-        <Grid className={classes.root} container item justify="center">
+        <Grid className={classes.root} container item justify="center" alignContent="center">
             <Card className={classes.card}>
                 <CardContent>
                     <Typography variant="h5" component="h2">
                         Categorizer
                     </Typography>
                     <Typography className={classes.pos} color="textSecondary">
-                        Select a PDF file below to open and categorize...
+                        Select a PDF file by clicking the icon below...
                     </Typography>
                 </CardContent>
                 <CardActions>

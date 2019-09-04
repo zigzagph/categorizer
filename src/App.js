@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Grid, Container } from '@material-ui/core';
+import SelectFile from './SelectFile';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// A page to open the pdf
+
+// A page to display the contents of the pdf
+// in a table with a selector at the beginning 
+
+// a dialog to choose the category to place the item in
+
+// a preview page of the categories
+
+// a way to print everything out. 
+
+
+export default () => {
+    return (
+        <Container>
+            <Grid container className="App">
+                <SelectFile />
+            </Grid>
+        </Container>  
+    );
 }
-
-export default App;

@@ -1,14 +1,21 @@
 import React from 'react';
-import { Grid, Container, Button } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 import SelectFile from './SelectFile';
 import ShowData from './ShowData';
+import Dehaze from '@material-ui/icons/Dehaze';
+import Fab from '@material-ui/core/Fab';
+import ToolTip from '@material-ui/core/Tooltip';
+import Clear from '@material-ui/icons/Clear';
 
 // A page to open the pdf : done
 
 // A page to display the contents of the pdf
-// in a table with a selector at the beginning 
+// in a table with a selector at the beginning : done
 
-// a dialog to choose the category to place the item in
+// a dialog to choose the category to place the item in : in progress
+
+Need to create the deduction categories, the category tables, summaries
+
 
 // a preview page of the categories
 
@@ -16,7 +23,7 @@ import ShowData from './ShowData';
 
 
 const styles = {
-    button: {
+    fab: {
         margin: 20
     }
 }
@@ -36,19 +43,23 @@ export default () => {
     return (
         <Container >
             <Grid container className="App">
-                {docObj && docObj.debts.length > 0 ? 
-                    <ShowData docObj={docObj}/> 
-                    : 
-                    <SelectFile setDocObj={(obj) => setDocObj(obj)} />
+                {
+                    docObj && docObj.debts.length > 0 ? 
+                        <ShowData docObj={docObj}/> : 
+                        <SelectFile setDocObj={(obj) => setDocObj(obj)} />
                 }
             </Grid>
             <Grid container justify="center">
-                <Button variant="contained" onClick={logState} style={styles.button}>
-                    Log State
-                </Button>
-                <Button variant="contained" onClick={clearState} style={styles.button}>
-                    Clear State
-                </Button>
+                <ToolTip title="Get State Log">
+                    <Fab color="primary" size="medium" onClick={logState} style={styles.fab}>
+                        <Dehaze />
+                    </Fab>
+                </ToolTip>
+                <ToolTip title="Clear State">
+                    <Fab color="primary" size="medium" onClick={clearState} style={styles.fab}>
+                        <Clear />
+                    </Fab>
+                </ToolTip>
             </Grid>
         </Container>  
     );

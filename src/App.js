@@ -3,7 +3,7 @@ import { Grid, Container, Button } from '@material-ui/core';
 import SelectFile from './SelectFile';
 import ShowData from './ShowData';
 
-// A page to open the pdf
+// A page to open the pdf : done
 
 // A page to display the contents of the pdf
 // in a table with a selector at the beginning 
@@ -22,22 +22,24 @@ const styles = {
 }
 
 export default () => {
-    const [items, setItems] = React.useState([]);
+    const [docObj, setDocObj] = React.useState({debts:[]});
  
     const logState = () => {
-        console.log(items)
+        console.log(docObj)
     }
 
     const clearState = () => {
         //console.log(items)
-        setItems([]);
+        setDocObj({debts:[]});
     }
 
     return (
         <Container >
             <Grid container className="App">
-                {
-                    items.length > 0 ? <ShowData /> : <SelectFile setItems={(i) => setItems(i)} />
+                {docObj && docObj.debts.length > 0 ? 
+                    <ShowData docObj={docObj}/> 
+                    : 
+                    <SelectFile setDocObj={(obj) => setDocObj(obj)} />
                 }
             </Grid>
             <Grid container justify="center">

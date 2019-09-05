@@ -8,9 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import PictureAsPdfSharpIcon from '@material-ui/icons/PictureAsPdfSharp';
 import axios from 'axios';
-//import {Progress} from 'reactstrap';
-// import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles({
     root: {

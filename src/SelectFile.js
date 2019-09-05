@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import PictureAsPdfSharpIcon from '@material-ui/icons/PictureAsPdfSharp';
 import axios from 'axios';
 //import {Progress} from 'reactstrap';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles({
@@ -24,11 +24,8 @@ const useStyles = makeStyles({
     },
 });
 
-export default ({
-    setItems
-}) => {
+export default ({setDocObj}) => {
     const classes = useStyles();
-    const [loaded, setLoaded] = React.useState(0);
     
     const handleFileIn = (e) => {
         //console.log("handleFileIn:");
@@ -39,17 +36,14 @@ export default ({
         }
 
         axios.post("http://localhost:4000/upload", data, {
-            onUploadProgress: ProgressEvent => {
-                setLoaded(ProgressEvent.loaded / ProgressEvent.total * 100);
-            },
         })
         .then(res => { // then print response status
-            console.log("Response:", res);
-            setItems(res.data);
-            toast.success('upload success')
+            //console.log("Response:", res);
+            setDocObj(res.data);
         })
         .catch(err => { // then print response status
-            toast.error('upload fail')
+            // toast.error('upload fail')
+            console.log("ERROR:", err);
         })
 
     }
@@ -80,14 +74,6 @@ export default ({
                                 <PictureAsPdfSharpIcon style={{color: "firebrick"}} />
                             </Button>
                         </label> 
-                        {/* <Button size="small" onClick={showState}>State</Button> */}
-                        <ToastContainer />
-                        {/* {
-                            loaded > 0 ? 
-                                <Progress max="100" color="success" value={loaded} >{Math.round(loaded,2) }%</Progress> 
-                            :
-                                 null
-                        } */}
                     </Grid>
                 </CardActions>
             </Card>

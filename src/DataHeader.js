@@ -26,8 +26,6 @@ const useStyles = makeStyles({
 
 export default ({docObj}) => {
     const classes = useStyles();
-    console.log(docObj);
-
     return (
         <Grid container justify="center">
             <Card className={classes.card}>
@@ -35,7 +33,7 @@ export default ({docObj}) => {
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         Statement Origin
                     </Typography>
-                    <Typography variant="h5" component="h2">
+                    <Typography variant="h5" component="h2" style={{ color: "crimson"}}>
                         {docObj.author}
                     </Typography>
                     <Typography className={classes.pos} color="textSecondary">
@@ -63,10 +61,10 @@ export default ({docObj}) => {
                 <CardActions>
                     <Grid container direction="column">
                         <Typography color="textSecondary">
-                            Total lines in pages: {docObj.total}
+                            Total complete lines: {docObj.complete}
                         </Typography>
                         <Typography color="textSecondary">
-                            Total complete lines: {docObj.complete}
+                            Total lines in pages: {docObj.total}
                         </Typography>
                         <Typography color="textSecondary">
                             Number of skipped lines (Earned Interest): {docObj.skipped}

@@ -14,7 +14,7 @@ import Clear from '@material-ui/icons/Clear';
 
 // a dialog to choose the category to place the item in : in progress
 
-Need to create the deduction categories, the category tables, summaries
+//Need to create the deduction categories, the category tables, summaries
 
 
 // a preview page of the categories

@@ -6,6 +6,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import DeductionButtons from './DeductionButtons';
+import Typography from '@material-ui/core/Typography';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
@@ -23,9 +25,9 @@ export default ({open, close}) => {
                 <DialogTitle>Select the appropriate deduciton type below</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Let Google help apps determine location. This means sending anonymous location data to
-                        Google, even when no apps are running.
+                        
                     </DialogContentText>
+                    <DeductionButtons />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={close} color="primary">

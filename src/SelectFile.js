@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import PictureAsPdfSharpIcon from '@material-ui/icons/PictureAsPdfSharp';
 import axios from 'axios';
+import Fab from '@material-ui/core/Fab';
 
 const useStyles = makeStyles({
     root: {
@@ -24,22 +24,22 @@ const useStyles = makeStyles({
 export default ({setDocObj}) => {
     const classes = useStyles();
     
-    const handleFileIn = (e) => {
-        //console.log("handleFileIn:");
+    const handleFile = (e) => {
 
+        // append the file(s) to the formdata
         const data = new FormData()
         for (var x = 0; x < e.target.files.length; x++) {
             data.append('file', e.target.files[x])
         }
 
+        // make the api call to the API server
         axios.post("http://localhost:4000/upload", data, {
         })
-        .then(res => { // then print response status
+        .then(res => {
             //console.log("Response:", res);
             setDocObj(res.data);
         })
-        .catch(err => { // then print response status
-            // toast.error('upload fail')
+        .catch(err => {
             console.log("ERROR:", err);
         })
 
@@ -53,7 +53,7 @@ export default ({setDocObj}) => {
                         Categorizer
                     </Typography>
                     <Typography className={classes.pos} color="textSecondary">
-                        Select a PDF file by clicking the icon below...
+                        Click the button below and select a PDF file.
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -62,14 +62,14 @@ export default ({setDocObj}) => {
                             accept=".pdf"
                             style={{ display: 'none' }}
                             id="raised-button-file"
-                            onChange={handleFileIn}
+                            onChange={handleFile}
                             multiple
                             type="file"
                         />
                         <label htmlFor="raised-button-file">
-                            <Button variant="text" component="span" size="small">
-                                <PictureAsPdfSharpIcon style={{color: "firebrick"}} />
-                            </Button>
+                            <Fab color="secondary" size="medium" component="span" style={{marginBottom: 20}}>
+                                <PictureAsPdfSharpIcon />
+                            </Fab>
                         </label> 
                     </Grid>
                 </CardActions>

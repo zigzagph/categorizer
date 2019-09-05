@@ -1,64 +1,62 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+// import Table from '@material-ui/core/Table';
+// import TableBody from '@material-ui/core/TableBody';
+// import TableCell from '@material-ui/core/TableCell';
+// import TableHead from '@material-ui/core/TableHead';
+// import TableRow from '@material-ui/core/TableRow';
+// import Paper from '@material-ui/core/Paper';
+import { Grid } from '@material-ui/core';
+import DataTable from './DataTable';
+import DataHeader from './DataHeader';
+import { ToastContainer, toast } from 'react-toastify';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        width: '100%',
-        marginTop: theme.spacing(3),
-        overflowX: 'auto',
+        // width: '100%',
+        // marginTop: theme.spacing(3),
+        // overflowX: 'auto',
     },
-    table: {
-        minWidth: 650,
-    },
+    // table: {
+    //     minWidth: 650,
+    // },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-export default () => {
+export default ({docObj}) => {
     const classes = useStyles();
+    
+    toast.success('Successfully parsed...')
 
     return (
-        <Paper className={classes.root}>
+        <Grid container className={classes.root}>
+            <ToastContainer />
+            <DataHeader docObj={docObj}/>
+            <DataTable debts={docObj.debts} />
+        </Grid>
+        
+        /* <Paper className={classes.root}>
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Dessert (100g serving)</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                        <TableCell>Date</TableCell>
+                        <TableCell align="right">Type</TableCell>
+                        <TableCell align="right">Description</TableCell>
+                        <TableCell align="right">Amount</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map(row => (
-                        <TableRow key={row.name}>
+                    {docObj.debts.map( (debt, i) => (
+                        <TableRow key={i}>
                             <TableCell component="th" scope="row">
-                                {row.name}
+                                {debt.date}
                             </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
+                            <TableCell align="right">{debt.type}</TableCell>
+                            <TableCell align="right">{debt.desc}</TableCell>
+                            <TableCell align="right">{debt.amount}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
-        </Paper>
+        </Paper> */
     );
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default ({travel}) => {
-    console.log(travel);
+    //console.log(travel);
     return (
         <div>
             { 

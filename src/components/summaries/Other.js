@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default ({other}) => {
-    console.log(other);
+    //console.log(other);
     return (
         <div>
             { 

@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import PictureAsPdfSharpIcon from '@material-ui/icons/PictureAsPdfSharp';
 import axios from 'axios';
 import Fab from '@material-ui/core/Fab';
+import BlurOn from '@material-ui/icons/BlurOn';
 
 const useStyles = makeStyles({
     root: {
@@ -33,8 +34,7 @@ export default ({setDocObj}) => {
         }
 
         // make the api call to the API server
-        axios.post("http://localhost:4000/upload", data, {
-        })
+        axios.post("http://localhost:4000/upload", data)
         .then(res => {
             //console.log("Response:", res);
             setDocObj(res.data);
@@ -42,7 +42,18 @@ export default ({setDocObj}) => {
         .catch(err => {
             console.log("ERROR:", err);
         })
+    }
 
+    // just used for testing
+    const loadTest = () => {
+        axios.get("http://localhost:4000")
+        .then(res => {
+            console.log("Response:", res);
+            setDocObj(res.data);
+        })
+        .catch(err => {
+            console.log("ERROR:", err);
+        })
     }
 
     return (
@@ -72,6 +83,11 @@ export default ({setDocObj}) => {
                             </Fab>
                         </label> 
                     </Grid>
+                    {/* <Grid container justify="center">
+                        <Fab color="secondary" size="medium" onClick={loadTest} style={{marginBottom: 20}}>
+                            <BlurOn />
+                        </Fab>
+                    </Grid> */}
                 </CardActions>
             </Card>
         </Grid>

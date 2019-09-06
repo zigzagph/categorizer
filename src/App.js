@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Container } from '@material-ui/core';
-import SelectFile from './SelectFile';
-import ShowData from './ShowData';
+import SelectFile from './components/SelectFile';
+import ShowData from './components/ShowData';
 import Dehaze from '@material-ui/icons/Dehaze';
 import Fab from '@material-ui/core/Fab';
 import ToolTip from '@material-ui/core/Tooltip';

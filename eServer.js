@@ -23,7 +23,16 @@ var upload = multer({ storage: storage }).array('file')
 
 // Root
 app.get('/',function(req,res){
-    return res.send('Hello Server')
+    
+    fs.readFile('./example.txt', (err, data) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        return res.send(data);
+    })
+    
+    //return res.send('Hello Server')
 })
 
 // API : /upload
@@ -121,6 +130,15 @@ app.post('/upload',function(req, res) {
 
                     // delete the uploaded file
                     fs.unlinkSync(file.destination + file.filename);
+
+                    // write out the file
+                    fs.writeFile('./example.txt', JSON.stringify(rtnObj), (err) => {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
+                        console.log("File created");
+                    })
 
                     // next then
                     return rtnObj;

@@ -38,6 +38,20 @@ export default ({docObj}) => {
     const handleDeduction = (obj) => {
         console.log("handleDeduction:", obj);
         setDialog();
+
+        switch( obj.deduction ) {
+            case 'other':
+                console.log("Other");
+                break;
+            case 'mande':
+                console.log('Meals & Entertainment');
+                break;
+            case 'travel':
+                console.log('Travel');
+                break;
+            default:
+                console.log("Unknown Deduction");
+        }
     }
 
     return (

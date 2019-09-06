@@ -6,6 +6,9 @@ import DataHeader from './DataHeader';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import ItemDialog from './ItemDialog';
+import Travel from './Travel';
+import MandE from './MandE';
+import Other from './Other';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -17,6 +20,9 @@ export default ({docObj}) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [selected, setSelected] = React.useState({});
+    const [travel, setTravel] = React.useState([]);
+    const [other, setOther] = React.useState([]);
+    const [mande, setMande] = React.useState([]);
     
     //toast.success('Successfully parsed...')
 
@@ -42,12 +48,14 @@ export default ({docObj}) => {
         switch( obj.deduction ) {
             case 'other':
                 console.log("Other");
+                setOther([...other, obj]);
                 break;
             case 'mande':
                 console.log('Meals & Entertainment');
+                setMande([...mande, obj]);
                 break;
             case 'travel':
-                console.log('Travel');
+                setTravel([...travel, obj]);
                 break;
             default:
                 console.log("Unknown Deduction");
@@ -60,6 +68,9 @@ export default ({docObj}) => {
             <DataHeader docObj={docObj}/>
             <DataTable debts={docObj.debts} itemSelected={itemSelected} />
             <ItemDialog open={open} close={setDialog} selected={selected} handleDeduction={handleDeduction}/>
+            <Travel travel={travel}/>
+            <MandE mande={mande}/>
+            <Other other={other}/>
         </Grid>
     );
 }

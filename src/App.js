@@ -12,9 +12,10 @@ import Clear from '@material-ui/icons/Clear';
 // A page to display the contents of the pdf
 // in a table with a selector at the beginning : done
 
-// a dialog to choose the category to place the item in : in progress
+// a dialog to choose the category to place the item in : done
 
-//Need to create the deduction categories, the category tables, summaries
+//Need to create the category tables, summaries
+//also need to indicate on the table what has already been categoriezed
 
 
 // a preview page of the categories

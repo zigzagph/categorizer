@@ -16,21 +16,36 @@ const useStyles = makeStyles(theme => ({
 export default ({docObj}) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [selected, setSelected] = React.useState({});
     
     //toast.success('Successfully parsed...')
 
     // open/close the dialog
-    const setDialog = (debt) => {
-        console.log("setDialog:", debt);
+    const setDialog = () => {
+        //console.log("setDialog");
+        // close the dialog
         setOpen(!open);
+    }
+
+    // handles table items that are selected
+    const itemSelected = (debt) => {
+        console.log("itemSelected:", debt);
+        setOpen(!open);
+        setSelected(debt);
+    }
+
+    // handles the ok from the item dialog
+    const handleDeduction = (obj) => {
+        console.log("handleDeduction:", obj);
+        setDialog();
     }
 
     return (
         <Grid container className={classes.root}>
             {/* <ToastContainer /> */}
-            <ItemDialog open={open} close={setDialog}/>
             <DataHeader docObj={docObj}/>
-            <DataTable debts={docObj.debts} close={(obj) => setDialog(obj)} />
+            <DataTable debts={docObj.debts} itemSelected={itemSelected} />
+            <ItemDialog open={open} close={setDialog} selected={selected} handleDeduction={handleDeduction}/>
         </Grid>
     );
 }

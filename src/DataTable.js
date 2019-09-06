@@ -21,12 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-// const handleClick = (debt) => {
-//     console.log("Clicked:",debt);
-//     //close();
-// }
-
-export default ({debts, close}) => {
+export default ({ debts, itemSelected }) => {
     const classes = useStyles();
     return (
         <Grid container>
@@ -43,7 +38,7 @@ export default ({debts, close}) => {
                     </TableHead>
                     <TableBody>
                         {debts.map( (debt, i) => (
-                            <TableRow hover key={i} onClick={() => close(debt)}>
+                            <TableRow hover key={i} onClick={() => itemSelected(debt)}>
                                 <TableCell component="th" scope="row">
                                     {debt.date}
                                 </TableCell>

@@ -19,13 +19,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default () => {
+export default ({deduction, handleChange}) => {
     const classes = useStyles();
-    const [value, setValue] = React.useState('mande');
-
-    function handleChange(event) {
-        setValue(event.target.value);
-    }
 
     return (
         <Grid container className={classes.root} justify="center">
@@ -34,7 +29,7 @@ export default () => {
                 <RadioGroup
                     name="deduction"
                     className={classes.group}
-                    value={value}
+                    value={deduction}
                     onChange={handleChange}
                 >
                     <FormControlLabel value="mande" control={<Radio />} label="Meals/Ent" />

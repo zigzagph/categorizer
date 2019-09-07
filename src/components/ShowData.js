@@ -6,23 +6,25 @@ import DataCard from './DataCard';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import ItemDialog from './ItemDialog';
-import Travel from './summaries/Travel';
-import MandE from './summaries/MandE';
-import Other from './summaries/Other';
+// import Travel from './summaries/Travel';
+// import MandE from './summaries/MandE';
+// import Other from './summaries/Other';
+import Summary from './summaries/Summary';
 
 const useStyles = makeStyles(theme => ({
     root: {
         //backgroundColor: "red",
+        marginTop: 40
     },
 }));
 
-const testME = {
-    comment: "Magazine",
-    amount: "-9.26",
-    date: '02/06/17',
-    desc: 'CHECKCARD  0205 NEWS AND GIFTS PHI PHILADELPHIA PA 24224437037105010352431',
-    type: 'debit'
-}
+// const testME = {
+//     comment: "Magazine",
+//     amount: "-9.26",
+//     date: '02/06/17',
+//     desc: 'CHECKCARD  0205 NEWS AND GIFTS PHI PHILADELPHIA PA 24224437037105010352431',
+//     type: 'debit'
+// }
 
 export default ({docObj}) => {
     const classes = useStyles();
@@ -55,22 +57,26 @@ export default ({docObj}) => {
 
         // destructure to get the fields I need
         const { comment, item } = obj;
-        // add comment to the item object
-        const sumItem = {
+        let sumItem = {
             comment: comment,
             ...item
-        }
+        };
+        //console.log(comment, item);
 
         switch( obj.deduction ) {
             case 'other':
-                setOther([...other, obj]);
+                // sumItem.type = "Other";
+                setOther([...other, sumItem]);
                 break;
+            
             case 'mande':
-                // setMande([...mande, obj]);
+                // sumItem.type = "Meals & Entertainment";
                 setMande([...mande, sumItem]);
                 break;
+            
             case 'travel':
-                setTravel([...travel, obj]);
+                // sumItem.type = "Travel";
+                setTravel([...travel, sumItem]);
                 break;
             default:
                 console.log("Unknown Deduction");
@@ -87,17 +93,19 @@ export default ({docObj}) => {
     return (
         <Grid container justify="center" className={classes.root}>
             {/* <ToastContainer /> */}
-            <DataCard docObj={docObj}/>
-            <DataTable debts={docObj.debts} itemSelected={itemSelected} />
             <ItemDialog open={open} close={setDialog} selected={selected} handleDeduction={handleDeduction}/>
-            
-            <Travel travel={travel}/>
+            <DataTable debts={docObj.debts} itemSelected={itemSelected} />
+            <DataCard docObj={docObj}/>
             
             <Grid item xs={10}>
-                <MandE period={() => period()} mande={mande}/>
+                <Summary period={() => period()} deductions={travel} title="Travel"/>
             </Grid>
-            
-            <Other other={other}/>
+            <Grid item xs={10}>
+                <Summary period={() => period()} deductions={mande} title="Meals & Entertainment"/>
+            </Grid>
+            <Grid item xs={10}>
+                <Summary period={() => period()} deductions={other} title="Other"/>
+            </Grid>
         </Grid>
     );
 }

@@ -80,6 +80,7 @@ export default ({open, close, selected, handleDeduction}) => {
                                 variant="outlined"
                                 multiline
                                 fullWidth
+                                autoFocus
                             />
                         </Grid>
                     </Grid>

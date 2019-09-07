@@ -74,7 +74,7 @@ export default ({setDocObj}) => {
                             style={{ display: 'none' }}
                             id="raised-button-file"
                             onChange={handleFile}
-                            multiple
+                            //multiple
                             type="file"
                         />
                         <label htmlFor="raised-button-file">
@@ -83,11 +83,11 @@ export default ({setDocObj}) => {
                             </Fab>
                         </label> 
                     </Grid>
-                    {/* <Grid container justify="center">
+                    <Grid container justify="center">
                         <Fab color="secondary" size="medium" onClick={loadTest} style={{marginBottom: 20}}>
                             <BlurOn />
                         </Fab>
-                    </Grid> */}
+                    </Grid>
                 </CardActions>
             </Card>
         </Grid>

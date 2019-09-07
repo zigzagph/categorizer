@@ -3,6 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import Heading from './Heading';
 import Header from './Header';
 import LineItem from './LineItem';
+import Total from './Total';
 
 const styles = {
     paper: {
@@ -11,15 +12,16 @@ const styles = {
     }
 }
 
-export default ({travel, period}) => {
+export default ({deductions, period, title}) => {
     const Deduction = () => {
         return (
             <Paper style={styles.paper}>
-                <Heading period={period} title="Travel"/>
+                <Heading period={period} title={title}/>
                 <Header />
-                { travel.map((item, i) => <LineItem item={item} key={i}/>) }
+                { deductions.map((item, i) => <LineItem item={item} key={i}/>) }
+                <Total items={deductions}/>
             </Paper>
         )
     }
-    return <div>{ travel.length > 0 ? <Deduction/> : null }</div>
+    return <div>{ deductions.length > 0 ? <Deduction/> : null }</div>
 }

@@ -14,8 +14,8 @@ import Clear from '@material-ui/icons/Clear';
 
 // a dialog to choose the category to place the item in : done
 
-//Need to create the category tables, summaries
-//also need to indicate on the table what has already been categoriezed
+//Need to create the category tables, summaries/totals : done
+//also need to indicate on the table what has already been categoriezed : going to remove from list
 
 
 // a preview page of the categories

@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import PictureAsPdfSharpIcon from '@material-ui/icons/PictureAsPdfSharp';
 import axios from 'axios';
 import Fab from '@material-ui/core/Fab';
-import BlurOn from '@material-ui/icons/BlurOn';
+//import BlurOn from '@material-ui/icons/BlurOn';
 
 const useStyles = makeStyles({
     root: {
@@ -25,6 +25,8 @@ const useStyles = makeStyles({
 export default ({setDocObj}) => {
     const classes = useStyles();
     
+    // handles the file selection
+    // and making the API call
     const handleFile = (e) => {
 
         // append the file(s) to the formdata
@@ -36,7 +38,7 @@ export default ({setDocObj}) => {
         // make the api call to the API server
         axios.post("http://localhost:4000/upload", data)
         .then(res => {
-            //console.log("Response:", res);
+            console.log("Response:", res);
             setDocObj(res.data);
         })
         .catch(err => {
@@ -45,7 +47,7 @@ export default ({setDocObj}) => {
     }
 
     // just used for testing
-    const loadTest = () => {
+    /* const loadTest = () => {
         axios.get("http://localhost:4000")
         .then(res => {
             console.log("Response:", res);
@@ -54,7 +56,7 @@ export default ({setDocObj}) => {
         .catch(err => {
             console.log("ERROR:", err);
         })
-    }
+    } */
 
     return (
         <Grid className={classes.root} container item justify="center" alignContent="center">
@@ -74,7 +76,7 @@ export default ({setDocObj}) => {
                             style={{ display: 'none' }}
                             id="raised-button-file"
                             onChange={handleFile}
-                            //multiple
+                            multiple
                             type="file"
                         />
                         <label htmlFor="raised-button-file">
@@ -83,11 +85,11 @@ export default ({setDocObj}) => {
                             </Fab>
                         </label> 
                     </Grid>
-                    <Grid container justify="center">
+                    {/* <Grid container justify="center">
                         <Fab color="secondary" size="medium" onClick={loadTest} style={{marginBottom: 20}}>
                             <BlurOn />
                         </Fab>
-                    </Grid>
+                    </Grid> */}
                 </CardActions>
             </Card>
         </Grid>

@@ -21,7 +21,18 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default ({ debts, itemSelected }) => {
+// this function checks the debt objects description
+// field to see if it matches the search/filter string
+// via a greedy regular exression. returns a bool for the filter
+const filterStr = (obj, str) => {
+    const { desc } = obj;
+    let pattern = new RegExp(str, 'ig');
+    if ( desc.match(pattern) ) return true;
+
+    return false;
+}
+
+export default ({ debts, itemSelected, search }) => {
     const classes = useStyles();
     return (
         <Grid container>
@@ -37,16 +48,19 @@ export default ({ debts, itemSelected }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {debts.map( (debt, i) => (
-                            <TableRow hover key={i} onClick={() => itemSelected(debt)}>
-                                <TableCell component="th" scope="row">
-                                    {debt.date}
-                                </TableCell>
-                                <TableCell align="right">{debt.type}</TableCell>
-                                <TableCell align="right">{debt.desc}</TableCell>
-                                <TableCell align="right">{debt.amount}</TableCell>
-                            </TableRow>
-                        ))}
+                        {
+                            debts.filter(debt => filterStr(debt, search) )
+                                .map((debt, i) => (
+                                    <TableRow hover key={i} onClick={() => itemSelected(debt)}>
+                                        <TableCell component="th" scope="row">
+                                            {debt.date}
+                                        </TableCell>
+                                        <TableCell align="right">{debt.type}</TableCell>
+                                        <TableCell align="right">{debt.desc}</TableCell>
+                                        <TableCell align="right">{debt.amount}</TableCell>
+                                    </TableRow>
+                            ))
+                        }
                     </TableBody>
                 </Table>
             </Paper>

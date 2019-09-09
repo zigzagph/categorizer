@@ -52,6 +52,7 @@ export default ({setSearch}) => {
                         <TextField
                             variant="outlined"
                             label="Filter"
+                            autoFocus
                             value={query}
                             fullWidth
                             onChange={(e) => applyFilter(e)}

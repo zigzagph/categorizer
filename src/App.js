@@ -17,8 +17,7 @@ import Clear from '@material-ui/icons/Clear';
 //Need to create the category tables, summaries/totals : done
 //also need to indicate on the table what has already been categoriezed : going to remove from list
 
-
-// a preview page of the categories
+// a preview page of the categories : done
 
 // a way to print everything out. 
 

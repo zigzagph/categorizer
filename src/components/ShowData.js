@@ -32,6 +32,7 @@ export default ({docObj}) => {
     const [other, setOther] = React.useState([]);
     const [mande, setMande] = React.useState([]);
     const [search, setSearch] = React.useState("");
+    const { debts } = docObj;
     
     //toast.success('Successfully parsed...')
 
@@ -86,7 +87,37 @@ export default ({docObj}) => {
         <Grid container justify="center" className={classes.root}>
             <ToastContainer />
             <ItemDialog open={open} close={setDialog} selected={selected} handleDeduction={handleDeduction}/>
-            <DataTable debts={docObj.debts} itemSelected={itemSelected} search={search}/>
+            
+            {/* <DataTable debts={debts} itemSelected={itemSelected} search={search}/> */}
+            <DataTable 
+                debts={
+                    debts.filter(d => {
+                        //console.log( travel.indexOf(d) );
+                        //console.log( other.indexOf(d) );
+                        //console.log(d);
+
+                        if ( mande.find(t => t.desc !== d.desc ) ) console.log("FOUND");
+
+
+                        //console.log(mande);
+                        //console.log( mande.indexOf(d.item) );
+                        /* if ( travel.indexOf(d) ) {
+                            console.log("Travel")
+                        } */
+
+                        /* if ( other.indexOf(d) ) {
+                            console.log("Other")
+                        } */
+
+                        /* if ( mande.indexOf(d) ) {
+                            console.log("Mande")
+                        } */
+                        return d;
+                    })
+                } 
+                itemSelected={itemSelected} 
+                search={search}
+            />
             
             {/* Data and Search/Filter Cards */}
             <Grid container item justify="space-around" direction="row">

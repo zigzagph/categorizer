@@ -38,7 +38,7 @@ export default ({setDocObj}) => {
         // make the api call to the API server
         axios.post("http://localhost:4000/upload", data)
         .then(res => {
-            console.log("Response:", res);
+            //console.log("Response:", res);
             setDocObj(res.data);
         })
         .catch(err => {

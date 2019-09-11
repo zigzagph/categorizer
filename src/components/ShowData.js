@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ItemDialog from './ItemDialog';
 import Summary from './summaries/Summary';
 import Search from './SearchCard';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -89,45 +90,50 @@ export default ({docObj}) => {
             <ItemDialog open={open} close={setDialog} selected={selected} handleDeduction={handleDeduction}/>
             
             {/* <DataTable debts={debts} itemSelected={itemSelected} search={search}/> */}
-            <DataTable 
-                debts={
-                    debts.filter(d => {
-                        //console.log( travel.indexOf(d) );
-                        //console.log( other.indexOf(d) );
-                        //console.log(d);
+            <Box display="block" displayPrint="none">
+                <DataTable 
+                    debts={debts}
+                    // debts={
+                    //     debts.filter(d => {
+                    //         //console.log( travel.indexOf(d) );
+                    //         //console.log( other.indexOf(d) );
+                    //         //console.log(d);
 
-                        if ( mande.find(t => t.desc !== d.desc ) ) console.log("FOUND");
+                    //         if ( mande.find(t => t.desc !== d.desc ) ) console.log("FOUND");
 
 
-                        //console.log(mande);
-                        //console.log( mande.indexOf(d.item) );
-                        /* if ( travel.indexOf(d) ) {
-                            console.log("Travel")
-                        } */
+                    //         //console.log(mande);
+                    //         //console.log( mande.indexOf(d.item) );
+                    //         /* if ( travel.indexOf(d) ) {
+                    //             console.log("Travel")
+                    //         } */
 
-                        /* if ( other.indexOf(d) ) {
-                            console.log("Other")
-                        } */
+                    //         /* if ( other.indexOf(d) ) {
+                    //             console.log("Other")
+                    //         } */
 
-                        /* if ( mande.indexOf(d) ) {
-                            console.log("Mande")
-                        } */
-                        return d;
-                    })
-                } 
-                itemSelected={itemSelected} 
-                search={search}
-            />
+                    //         /* if ( mande.indexOf(d) ) {
+                    //             console.log("Mande")
+                    //         } */
+                    //         return d;
+                    //     })
+                    // } 
+                    itemSelected={itemSelected} 
+                    search={search}
+                />
+            </Box>
             
             {/* Data and Search/Filter Cards */}
-            <Grid container item justify="space-around" direction="row">
-                <Grid item xs={6}>
-                    <DataCard docObj={docObj}/>
+            <Box display="block" displayPrint="none">
+                <Grid container item justify="space-around" direction="row">
+                    <Grid item xs={6}>
+                        <DataCard docObj={docObj}/>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Search setSearch={(s) => setSearch(s)}/>    
+                    </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                    <Search setSearch={(s) => setSearch(s)}/>    
-                </Grid>
-            </Grid>
+            </Box>
             
             {/* Summaries */}
             <Grid container justify="center">

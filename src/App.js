@@ -6,6 +6,7 @@ import Dehaze from '@material-ui/icons/Dehaze';
 import Fab from '@material-ui/core/Fab';
 import ToolTip from '@material-ui/core/Tooltip';
 import Clear from '@material-ui/icons/Clear';
+import Box from '@material-ui/core/Box';
 
 // A page to open the pdf : done
 
@@ -49,18 +50,21 @@ export default () => {
                         <SelectFile setDocObj={(obj) => setDocObj(obj)} />
                 }
             </Grid>
-            <Grid container justify="center">
-                <ToolTip title="Get State Log">
-                    <Fab color="primary" size="medium" onClick={logState} style={styles.fab}>
-                        <Dehaze />
-                    </Fab>
-                </ToolTip>
-                <ToolTip title="Clear State">
-                    <Fab color="primary" size="medium" onClick={clearState} style={styles.fab}>
-                        <Clear />
-                    </Fab>
-                </ToolTip>
-            </Grid>
+            
+            <Box display="block" displayPrint="none">
+                <Grid container justify="center">
+                    <ToolTip title="Get State Log">
+                        <Fab color="primary" size="medium" onClick={logState} style={styles.fab}>
+                            <Dehaze />
+                        </Fab>
+                    </ToolTip>
+                    <ToolTip title="Clear State">
+                        <Fab color="primary" size="medium" onClick={clearState} style={styles.fab}>
+                            <Clear />
+                        </Fab>
+                    </ToolTip>
+                </Grid>
+            </Box>
         </Container>  
     );
 }

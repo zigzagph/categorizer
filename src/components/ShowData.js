@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import ItemDialog from './ItemDialog';
 import Summary from './summaries/Summary';
 import Search from './SearchCard';
-import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -17,16 +16,10 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-// const testME = {
-//     comment: "Magazine",
-//     amount: "-9.26",
-//     date: '02/06/17',
-//     desc: 'CHECKCARD  0205 NEWS AND GIFTS PHI PHILADELPHIA PA 24224437037105010352431',
-//     type: 'debit'
-// }
-
 export default ({docObj}) => {
     const classes = useStyles();
+
+    // future : consolidate to a state object
     const [open, setOpen] = React.useState(false);
     const [selected, setSelected] = React.useState({});
     const [travel, setTravel] = React.useState([]);
@@ -34,8 +27,6 @@ export default ({docObj}) => {
     const [mande, setMande] = React.useState([]);
     const [search, setSearch] = React.useState("");
     const { debts } = docObj;
-    
-    //toast.success('Successfully parsed...')
 
     // open/close the dialog
     const setDialog = () => {
@@ -53,7 +44,7 @@ export default ({docObj}) => {
     const handleDeduction = (obj) => {
         setDialog();
 
-        toast.success('Deduction added...');
+        toast.success('Deduction added...', {autoClose: 1500});
 
         // destructure to get the fields I need
         const { comment, item } = obj;
@@ -62,6 +53,7 @@ export default ({docObj}) => {
             ...item
         };
 
+        // future : convert this to a reducer hook
         switch( obj.deduction ) {
             case 'other':
                 setOther([...other, sumItem]);
@@ -84,69 +76,55 @@ export default ({docObj}) => {
         return docObj.startMonth + "-" + docObj.endMonth;
     }
 
+    // Array of the current summaries
+    const dSummaries = [
+        {
+            title: "Travel",
+            deduction: travel
+        },
+        {
+            title: "Meals & Entertainment",
+            deduction: mande
+        },
+        {
+            title: "Other",
+            deduction: other
+        }
+    ]
+
     return (
         <Grid container justify="center" className={classes.root}>
             <ToastContainer />
+            
             <ItemDialog open={open} close={setDialog} selected={selected} handleDeduction={handleDeduction}/>
             
-            {/* <DataTable debts={debts} itemSelected={itemSelected} search={search}/> */}
-            <Box display="block" displayPrint="none">
-                <DataTable 
-                    debts={debts}
-                    // debts={
-                    //     debts.filter(d => {
-                    //         //console.log( travel.indexOf(d) );
-                    //         //console.log( other.indexOf(d) );
-                    //         //console.log(d);
+            <DataTable 
+                debts={debts}
+                itemSelected={itemSelected} 
+                search={search}
+            />
 
-                    //         if ( mande.find(t => t.desc !== d.desc ) ) console.log("FOUND");
-
-
-                    //         //console.log(mande);
-                    //         //console.log( mande.indexOf(d.item) );
-                    //         /* if ( travel.indexOf(d) ) {
-                    //             console.log("Travel")
-                    //         } */
-
-                    //         /* if ( other.indexOf(d) ) {
-                    //             console.log("Other")
-                    //         } */
-
-                    //         /* if ( mande.indexOf(d) ) {
-                    //             console.log("Mande")
-                    //         } */
-                    //         return d;
-                    //     })
-                    // } 
-                    itemSelected={itemSelected} 
-                    search={search}
-                />
-            </Box>
-            
-            {/* Data and Search/Filter Cards */}
-            <Box display="block" displayPrint="none">
-                <Grid container item justify="space-around" direction="row">
-                    <Grid item xs={6}>
-                        <DataCard docObj={docObj}/>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Search setSearch={(s) => setSearch(s)}/>    
-                    </Grid>
+            <Grid container item justify="space-around" direction="row">
+                <Grid item xs={6}>
+                    <DataCard docObj={docObj}/>
                 </Grid>
-            </Box>
-            
-            {/* Summaries */}
-            <Grid container justify="center">
-                <Grid item xs={10}>
-                    <Summary period={() => period()} deductions={travel} title="Travel"/>
-                </Grid>
-                <Grid item xs={10}>
-                    <Summary period={() => period()} deductions={mande} title="Meals & Entertainment"/>
-                </Grid>
-                <Grid item xs={10}>
-                    <Summary period={() => period()} deductions={other} title="Other"/>
+                <Grid item xs={6}>
+                    <Search setSearch={(s) => setSearch(s)}/>    
                 </Grid>
             </Grid>
+
+            <Grid container justify="center">
+                {
+                    dSummaries && dSummaries.map((d, i) => {
+                        return (
+                            <Grid key={i} item xs={10}>
+                                <Summary period={() => period()} deductions={d.deduction} title={d.title}/>
+                            </Grid>
+                        )
+                    })
+                }
+            </Grid>
+
         </Grid>
     );
 }

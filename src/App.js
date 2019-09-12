@@ -6,21 +6,19 @@ import Dehaze from '@material-ui/icons/Dehaze';
 import Fab from '@material-ui/core/Fab';
 import ToolTip from '@material-ui/core/Tooltip';
 import Clear from '@material-ui/icons/Clear';
-import Box from '@material-ui/core/Box';
 
-// A page to open the pdf : done
+// A page to select a pdf : done
 
-// A page to display the contents of the pdf
-// in a table with a selector at the beginning : done
+// table with a selector at the beginning : done
 
 // a dialog to choose the category to place the item in : done
 
 //Need to create the category tables, summaries/totals : done
 //also need to indicate on the table what has already been categoriezed : going to remove from list
 
-// a preview page of the categories : done
+// a preview component of the deductions : done
 
-// a way to print everything out. 
+// a way to print/save a summary component : done
 
 
 const styles = {
@@ -51,20 +49,18 @@ export default () => {
                 }
             </Grid>
             
-            <Box display="block" displayPrint="none">
-                <Grid container justify="center">
-                    <ToolTip title="Get State Log">
-                        <Fab color="primary" size="medium" onClick={logState} style={styles.fab}>
-                            <Dehaze />
-                        </Fab>
-                    </ToolTip>
-                    <ToolTip title="Clear State">
-                        <Fab color="primary" size="medium" onClick={clearState} style={styles.fab}>
-                            <Clear />
-                        </Fab>
-                    </ToolTip>
-                </Grid>
-            </Box>
+            <Grid container justify="center">
+                <ToolTip title="Get State Log">
+                    <Fab color="primary" size="medium" onClick={logState} style={styles.fab}>
+                        <Dehaze />
+                    </Fab>
+                </ToolTip>
+                <ToolTip title="Clear State">
+                    <Fab color="primary" size="medium" onClick={clearState} style={styles.fab}>
+                        <Clear />
+                    </Fab>
+                </ToolTip>
+            </Grid>
         </Container>  
     );
 }

@@ -47,9 +47,11 @@ export default ({docObj}) => {
         toast.success('Deduction added...', {autoClose: 1500});
 
         // destructure to get the fields I need
-        const { comment, item } = obj;
+        const { comment, item, adjustment, adjustmentComment } = obj;
         let sumItem = {
             comment: comment,
+            adjustment: adjustment,
+            adjustmentComment: adjustmentComment,
             ...item
         };
 

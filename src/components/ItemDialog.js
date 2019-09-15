@@ -17,11 +17,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 // initial State
 const initState = {
     comment: "",
-    deduction: "mande"
+    deduction: "mande",
+    adjustment: "",
+    adjustmentComment: ""
 };
 
 export default ({open, close, selected, handleDeduction}) => {
-    const [{ comment, deduction }, setState] = React.useState(initState);
+    const [{ comment, deduction, adjustment, adjustmentComment }, setState] = React.useState(initState);
 
     const resetState = () => {
         setState({ ...initState });
@@ -31,7 +33,9 @@ export default ({open, close, selected, handleDeduction}) => {
         handleDeduction({
             item: selected,
             comment: comment,
-            deduction: deduction
+            deduction: deduction,
+            adjustment: adjustment,
+            adjustmentComment: adjustmentComment
         });
 
         resetState();
@@ -70,7 +74,7 @@ export default ({open, close, selected, handleDeduction}) => {
                             </Typography> 
                         </Grid>
                         <DeductionButtons deduction={deduction} handleChange={handleChange}/>
-                        <Grid container item justify="center">
+                        <Grid container item justify="center" style={{padding: 0}}>
                             <TextField
                                 label="Comment"
                                 name="comment"
@@ -81,6 +85,26 @@ export default ({open, close, selected, handleDeduction}) => {
                                 multiline
                                 fullWidth
                                 autoFocus
+                            />
+                        </Grid>
+                        <Grid container item justify="center">
+                            <TextField
+                                label="Adjustment"
+                                name="adjustment"
+                                value={adjustment}
+                                onChange={handleChange}
+                                margin="normal"
+                                variant="outlined"
+                                style={{marginRight: 20, width: 150}}
+                            />
+                            <TextField
+                                label="Adjustment Comment"
+                                name="adjustmentComment"
+                                value={adjustmentComment}
+                                onChange={handleChange}
+                                margin="normal"
+                                variant="outlined"
+                                style={{marginRight: 20, width: 300}}
                             />
                         </Grid>
                     </Grid>

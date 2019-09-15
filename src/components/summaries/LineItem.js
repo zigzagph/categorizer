@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
 export default ({item}) => {
+    console.log(item);
     return (
         <Grid container>
             <Grid container item style={{marginTop: 10}}>
@@ -19,12 +20,28 @@ export default ({item}) => {
             </Grid>
             {
                 item.comment ? 
-                    <Grid container item style={{marginBottom: 10}}>
+                    <Grid container item style={{marginBottom: 10, marginTop: 10}}>
                         <Grid container item xs={2} justify="flex-end">
-                            <Typography variant="body1" display="inline">Note : </Typography>
+                            <Typography variant="body1" display="inline">Purchase Note : </Typography>
                         </Grid>
                         <Grid item xs={9} style={{paddingLeft: 4}}>
                             <Typography variant="body1" display="inline">{item.comment}</Typography>
+                        </Grid>
+                    </Grid>
+                :
+                    null
+            }
+            {
+                item.adjustment ? 
+                    <Grid container item style={{marginBottom: 10}}>
+                        <Grid container item xs={2} justify="flex-end">
+                            <Typography variant="body1" display="inline">Adjustment : </Typography>
+                        </Grid>
+                        <Grid item xs={9} style={{paddingLeft: 4}}>
+                            <Typography variant="body1" display="inline">{item.adjustmentComment}</Typography>
+                        </Grid>
+                        <Grid container item xs={1} justify='flex-end' style={{paddingLeft: 4}}>
+                            <Typography variant="body1" display="inline">{item.adjustment}</Typography>
                         </Grid>
                     </Grid>
                 :

@@ -10,9 +10,10 @@ import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
+
     },
     formControl: {
-        margin: theme.spacing(3),
+        margin: 0
     },
     group: {
         margin: theme.spacing(1, 0),

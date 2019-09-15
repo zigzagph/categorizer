@@ -2,14 +2,26 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import ToolTip from '@material-ui/core/Tooltip';
+import Clear from '@material-ui/icons/Clear';
+import Box from '@material-ui/core/Box';
 
-export default ({item}) => {
-    console.log(item);
+export default ({item, removeItem}) => {
     return (
         <Grid container>
             <Grid container item style={{marginTop: 10}}>
-                <Grid item xs={2}>
-                    <Typography variant="body1" display="inline">{item.date}</Typography>
+                <Grid container item xs={2}>
+                    <Grid item xs={8}>
+                        <Typography variant="body1" display="inline">{item.date}</Typography>
+                    </Grid>
+                    
+                    <Box display="block" displayPrint="none">
+                        <Grid item xs={4}>
+                            <ToolTip title="Remove Item">
+                                <Clear onClick={() => removeItem(item)} />
+                            </ToolTip>
+                        </Grid>
+                    </Box>
                 </Grid>
                 <Grid item xs={9}>
                     <Typography variant="body1" display="inline">{item.desc}</Typography>

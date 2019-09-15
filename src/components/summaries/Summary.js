@@ -23,14 +23,14 @@ class Deduction extends React.Component {
             <Paper id="paper" style={styles.paper}>
                 <Heading period={this.props.period} title={this.props.title} save={this.props.save}/>
                 <Header />
-                { this.props.deductions.map((item, i) => <LineItem item={item} key={i}/>) }
+                { this.props.deductions.map((item, i) => <LineItem item={item} key={i} removeItem={this.props.removeItem}/>) }
                 <Total items={this.props.deductions}/>
             </Paper>
         )
     }
 }
 
-export default ({deductions, period, title}) => {
+export default ({deductions, period, title, removeItem}) => {
     const componentRef = React.useRef();
 
     // Button used to trigger the react-to-print
@@ -54,7 +54,7 @@ export default ({deductions, period, title}) => {
                     trigger={saveBtn}
                     content={() => componentRef.current}
                 />
-                <Deduction deductions={deductions} period={period} title={title} ref={componentRef}/>
+                <Deduction deductions={deductions} period={period} title={title} ref={componentRef} removeItem={removeItem}/>
             </> 
         : 
             null 

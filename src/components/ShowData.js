@@ -94,6 +94,13 @@ export default ({docObj}) => {
         }
     ]
 
+    // handles removing an item from a summary
+    const removeItem = (obj) => {
+        if ( travel.indexOf(obj) >= 0 ) setTravel( travel.filter(i => i.desc !== obj.desc) )
+        if ( other.indexOf(obj) >= 0 ) setOther( other.filter(i => i.desc !== obj.desc) )
+        if ( mande.indexOf(obj) >= 0 ) setMande( mande.filter(i => i.desc !== obj.desc) );        
+    }
+
     return (
         <Grid container justify="center" className={classes.root}>
             <ToastContainer />
@@ -120,7 +127,7 @@ export default ({docObj}) => {
                     dSummaries && dSummaries.map((d, i) => {
                         return (
                             <Grid key={i} item xs={10}>
-                                <Summary period={() => period()} deductions={d.deduction} title={d.title}/>
+                                <Summary period={() => period()} deductions={d.deduction} title={d.title} removeItem={removeItem}/>
                             </Grid>
                         )
                     })

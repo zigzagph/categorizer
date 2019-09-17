@@ -22,7 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serv": "nodemon eServer.js"
+    "dev": "nodemon eServer.js",
+    "serv": "node eServer.js"
   },
   "eslintConfig": {
     "extends": "react-app"

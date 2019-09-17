@@ -184,9 +184,10 @@ app.post('/upload',function(req, res) {
                     withdrawls: Number(a.withdrawls + c.withdrawls)
                 }
                 return ({...a});
-            })
+            });
 
             //console.log("RTN:",rtn);
+
             res.send( rtn );
 
         }).catch( error => {
@@ -194,120 +195,6 @@ app.post('/upload',function(req, res) {
             // return the error
             res.send( error );
         });
-
-        // single file iteration
-        // iterate over each pdf file
-        /* for (const file of req.files) {
-            // buffer the contents of the pdf file
-            let dataBuffer = fs.readFileSync(file.destination + file.filename);
-
-            // parse the pdf data
-            /* pdf(dataBuffer).then(data => {
-
-                let arrayOfLines = [];
-                let pdfObj = {};
-
-                // set some of the return obj properties
-                pdfObj.author = data.info.Author;
-                pdfObj.pages = data.numpages;
-                pdfObj.skipped = 0;
-
-                if ( data.info.Author === "CapitalOne" ) {
-                    console.log("Capital One Detected");
-                } else if ( data.info.Author === "Bank of America" ) {
-                    console.log("Bank of America");
-        
-                    // split the large string into individual lines
-                    const strArr = data.text.split("\n");
-                    pdfObj.total = strArr.length;
-
-                    // loop over each line and construct complete lines
-                    // from the string array
-                    for(const x in strArr){
-
-                        // skip the interest earned lines. dont need that data
-                        if ( strArr[x].match(/^(?:\d+\/\d+\/\d+)(Interest\sEarned)(.*)/g) ) {
-                            pdfObj.skipped += 1;
-                            continue;
-                        }
-
-                        // extract the statements month range
-                        const encompass = strArr[x].match(/^for\s(\w+\s\d{2}\,\s\d{4})\sto\s(\w+\s\d{2}\,\s\d{4})$/);
-                        if ( encompass ) {
-                            //console.log("Encompass: ", encompass);
-                            pdfObj.startMonth = encompass[1];
-                            pdfObj.endMonth = encompass[2];
-                        }
-
-                        // ^ date match
-                        const dateMatch = strArr[x].match(/^(\d{2}\/\d{2}\/\d{2})(.*)/ig);
-                        // if there is a date at the beginning of the line then we can 
-                        // conclude that this is a debt or dep line
-                        if ( dateMatch ) {
-
-                            // $ currency match
-                            const mCur = dateMatch[0].match(/(\d+\,)?(\d*)(\.\d{2})$/ig);
-                            
-                            // next we check to see if the end of the line has a currency,
-                            // if there is no currency then the line is not complete and will
-                            // have to look ahead to complete the line
-
-                            // if the current line is not complete
-                            if ( !mCur ) {
-                                // if the current line does not end with a currency match then
-                                // I need to look ahead for the rest of the line data hense the
-                                // finishLine method to complete the line
-                                const line = finishLine(strArr, x);
-                                
-                                // push the complete line into the array
-                                arrayOfLines.push(line);
-                            } else {
-                                // the line is complete push the line into the array
-                                arrayOfLines.push(dateMatch[0]);
-                            }
-                        }
-                    }
-
-                    // the total number of complete lines
-                    pdfObj.complete = arrayOfLines.length;
-
-                    // construct the return obj
-                    let rtnObj = {
-                        ...pdfObj,
-                        ...parseBofA(arrayOfLines)
-                    }
-
-                    // delete the uploaded file
-                    fs.unlinkSync(file.destination + file.filename);
-
-                    // write out the file
-                    // fs.writeFile('./example.txt', JSON.stringify(rtnObj), (err) => {
-                    //     if (err) {
-                    //         console.log(err);
-                    //         return;
-                    //     }
-                    //     console.log("File created");
-                    // })
-
-                    // next then
-                    return rtnObj;
-
-                } else if ( data.info.Author === "AmEx" ) {
-                    console.log("AmEx");
-                }
-
-            }).then( obj => {
-                // console.log("OBJ", obj);
-
-                // return the data
-                res.send( obj );
-
-            }).catch( error => {
-                console.log("Error: ", error);
-                // return the error
-                res.send( error );
-            });
-        } */
     })
 });
 
@@ -405,5 +292,5 @@ function parseBofA(lineArray){
 }
 
 app.listen(4000, function() {
-    console.log('App running on port 4000');
+    console.log('API Server running on port 4000');
 });

@@ -15,25 +15,35 @@ Number.prototype.format = function(n, x) {
 };
 
 export default ({items}) => {
-    const [charges, setCharges] = React.useState(0);
-    const [adjustments, setAdjustments] = React.useState(0);
+    const [charges, setCharges] = React.useState("");
+    const [adjustments, setAdjustments] = React.useState("");
 
     const Charges = () => {
         const totalCharges = items.reduce((p, c) => p += Number(c.amount.replace(',', '')), 0).format(2);
-        setCharges(Number(totalCharges));
+        setCharges(totalCharges);
         return (
             <Typography display="inline" variant="body2" style={{paddingRight: 30, color: 'red'}}>
-                <strong>{totalCharges}</strong>
+                <strong>$ {totalCharges}</strong>
             </Typography>
         )
     }
 
     const Adjustments = () => {
         const totalAdjustments = items.reduce((p, c) => p += Number(c.adjustment.replace(',', '')), 0).format(2);
-        setAdjustments(Number(totalAdjustments));
+        setAdjustments(totalAdjustments);
         return (
             <Typography display="inline" variant="body2" style={{paddingRight: 30}}>
-                <strong>{totalAdjustments}</strong>
+                <strong>$ {totalAdjustments}</strong>
+            </Typography>
+        )
+    }
+
+    const GrandTotal = () => {
+        const chg = charges.replace('-', "").replace(',', "");
+        const gt = chg - adjustments;
+        return (
+            <Typography display="inline" variant="body2" style={{paddingRight: 30, color: 'red'}}>
+                <strong>$ -{gt.format(2)}</strong>
             </Typography>
         )
     }
@@ -58,9 +68,7 @@ export default ({items}) => {
                 <Typography display="inline" variant="body1" style={{paddingRight: 20}}>
                     <strong>Grand Total :</strong>
                 </Typography>
-                <Typography display="inline" variant="body2" style={{paddingRight: 30, color: 'red'}}>
-                    <strong>{charges + adjustments}</strong>
-                </Typography>
+                <GrandTotal />
             </Grid>
         </Grid>
     )

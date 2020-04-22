@@ -21,7 +21,7 @@ export default ({docObj}) => {
 
     // future : consolidate to a state object
     const [open, setOpen] = React.useState(false);
-    const [selected, setSelected] = React.useState({});
+    const [selected, setSelected] = React.useState([]);
     const [travel, setTravel] = React.useState([]);
     const [other, setOther] = React.useState([]);
     const [mande, setMande] = React.useState([]);
@@ -48,25 +48,31 @@ export default ({docObj}) => {
 
         // destructure to get the fields I need
         const { comment, item, adjustment, adjustmentComment } = obj;
-        let sumItem = {
-            comment: comment,
-            adjustment: adjustment,
-            adjustmentComment: adjustmentComment,
-            ...item
-        };
 
+        let it;
+        let sumItems = []
+        for(it of item) {
+            let sumItem = {
+                comment: comment,
+                adjustment: adjustment,
+                adjustmentComment: adjustmentComment,
+                ...it
+            };
+            sumItems.push(sumItem);
+        }
+            
         // future : convert this to a reducer hook
         switch( obj.deduction ) {
             case 'other':
-                setOther([...other, sumItem]);
+                setOther([...other, ...sumItems]);
                 break;
             
             case 'mande':
-                setMande([...mande, sumItem]);
+                setMande([...mande, ...sumItems]);
                 break;
             
             case 'travel':
-                setTravel([...travel, sumItem]);
+                setTravel([...travel, ...sumItems]);
                 break;
             default:
                 toast.error("Unknown Deduction");

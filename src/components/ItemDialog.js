@@ -37,7 +37,6 @@ export default ({open, close, selected, handleDeduction}) => {
             adjustment: adjustment,
             adjustmentComment: adjustmentComment
         });
-
         resetState();
     }
 
@@ -56,24 +55,35 @@ export default ({open, close, selected, handleDeduction}) => {
             >
                 <DialogTitle>Select the appropriate deduction type below</DialogTitle>
                 <DialogContent>
-                    <Grid container spacing={3}>
-                        <Grid container item justify="space-around">
-                            <Typography variant="body2">
-                                <strong>Date:</strong> {selected.date}
-                            </Typography>
-                            <Typography variant="body2">
-                                <strong>Type:</strong> {selected.type}
-                            </Typography>
-                            <Typography variant="body2">
-                                <strong>Amount:</strong> {selected.amount}
-                            </Typography> 
-                        </Grid>
-                        <Grid container item justify="center">
-                            <Typography variant="body2">
-                                <strong>Description:</strong> {selected.desc}
-                            </Typography> 
-                        </Grid>
+                    <Grid container spacing={2}>
+                        
+                        {
+                            selected.length === 1 ?
+                                <Grid container>
+                                    <Grid container item justify="space-around">
+                                        <Typography variant="body2">
+                                            <strong>Date:</strong> {selected[0].date}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            <strong>Type:</strong> {selected[0].type}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            <strong>Amount:</strong> {selected[0].amount}
+                                        </Typography> 
+                                    </Grid>
+                                    <Grid container item justify="center">
+                                        <Typography variant="body2">
+                                            <strong>Description:</strong> {selected[0].desc}
+                                        </Typography> 
+                                    </Grid>
+                                </Grid>
+                            :
+                                null
+                        }
+
+
                         <DeductionButtons deduction={deduction} handleChange={handleChange}/>
+
                         <Grid container item justify="center" style={{padding: 0}}>
                             <TextField
                                 label="Comment"

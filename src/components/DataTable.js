@@ -8,6 +8,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Fab from '@material-ui/core/Fab';
+import ExportIcon from '@material-ui/icons/ImportExport';
+import ToolTip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,16 +30,35 @@ const useStyles = makeStyles(theme => ({
 const filterStr = (obj, str) => {
     const { desc } = obj;
     let pattern = new RegExp(str, 'ig');
-    if ( desc.match(pattern) ) return true;
-
-    return false;
+    
+    if ( desc.match(pattern) ) {
+        obj.filtered = true;
+        return obj.filtered;
+    }
+    obj.filtered = false;
+    return obj.filtered;
 }
 
 export default ({ debts, itemSelected, search }) => {
     const classes = useStyles();
+
+    const exportList = (debts) => {
+        const items = debts.filter(debt => debt.filtered);
+        itemSelected(items);
+    }
+
     return (
         <Grid container>
-            <Typography variant="h4" style={{color: 'white'}}>Parsed Items: {debts.length}</Typography>
+            
+            <Grid container justify="space-between">
+                <Typography variant="h4" style={{color: 'white'}}>Parsed Items: {debts.length}</Typography>
+                <ToolTip title="Export List">
+                    <Fab color="primary" aria-label="add" size="small" style={{float: "right"}}>
+                        <ExportIcon onClick={() => exportList(debts)}/>
+                    </Fab>
+                </ToolTip>
+            </Grid>
+            
             <Paper className={classes.root}>
                 <Table stickyHeader className={classes.table}>
                     <TableHead>
@@ -51,7 +73,7 @@ export default ({ debts, itemSelected, search }) => {
                         {
                             debts.filter(debt => filterStr(debt, search) )
                                 .map((debt, i) => (
-                                    <TableRow hover key={i} onClick={() => itemSelected(debt)}>
+                                    <TableRow hover key={i} onClick={() => itemSelected([debt])}>
                                         <TableCell component="th" scope="row">
                                             {debt.date}
                                         </TableCell>

@@ -235,7 +235,8 @@ function parseBofA(lineArray){
                     type: "withdrawl",
                     date: withdrawl[1],
                     desc: withdrawl[2],
-                    amount: withdrawl[4]
+                    amount: withdrawl[4],
+                    filtered: true
                 }
                 
                 // increment the withdrawl count
@@ -255,7 +256,8 @@ function parseBofA(lineArray){
                     type: "check",
                     date: check[1],
                     desc: check[2],
-                    amount: check[3]
+                    amount: check[3],
+                    filtered: true
                 }
 
                 // increment the checks count
@@ -274,7 +276,8 @@ function parseBofA(lineArray){
                 type: "debit",
                 date: match[1],
                 desc: match[2],
-                amount: purchase[0]
+                amount: purchase[0],
+                filtered: true
             }
 
             // increment the debit count
